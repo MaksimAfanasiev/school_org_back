@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+mongoose.set('strictQuery', false)
 
 const DB_URI =
   "mongodb+srv://planneruser32:planorg123@cluster0.0i6w7au.mongodb.net/db_planner?retryWrites=true&w=majority";

@@ -1,37 +1,15 @@
 const { Router } = require("express");
+const userControllers = require("../../controllers/userControllers");
+const authMiddleware = require("../../middlewares/authMiddleware");
 
 const router = Router();
 
-router.get("/:id", (req, res) => {
-  res.json({
-    code: 200,
-    status: "success",
-    data: "Get user by Id",
-  });
-});
+router.get("/current",authMiddleware, userControllers.getCurrent);
 
-router.post("/register", (req, res) => {
-  res.json({
-    code: 201,
-    status: "created",
-    data: "User register",
-  });
-});
+router.post("/register", userControllers.createUser);
 
-router.post("/login", (req, res) => {
-  res.json({
-    code: 200,
-    status: "success",
-    data: "User login",
-  });
-});
+router.post("/login", userControllers.loginUser);
 
-router.post("/logout", (req, res) => {
-  res.json({
-    code: 200,
-    status: "sucsess",
-    data: "User logout",
-  });
-});
+router.get("/", authMiddleware, userControllers.logoutUser);
 
 module.exports = router;

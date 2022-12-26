@@ -17,7 +17,10 @@ const UserSchema = Schema({
     type: String,
     required: [true, "DB:Provide your password"],
   },
-  token: String,
+  token: {
+    type: String,
+    default: null,
+  },
 });
 
 const User = model("user", UserSchema);
