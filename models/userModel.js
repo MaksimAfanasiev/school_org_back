@@ -21,6 +21,7 @@ const UserSchema = Schema({
     type: String,
     default: null,
   },
+  courses: [],
 });
 
 const User = model("user", UserSchema);

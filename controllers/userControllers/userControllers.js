@@ -1,6 +1,7 @@
-const User = require("../models/userModel");
+const User = require("../../models/userModel");
+const Course = require("../../models/courseModel");
 const bcrypt = require("bcryptjs");
-const requestError = require("../helpers/RequestError");
+const requestError = require("../../helpers/RequestError");
 const jwt = require("jsonwebtoken");
 
 const SALT = 5;
@@ -22,11 +23,14 @@ const createUser = async (req, res, next) => {
 
     const hashedPassword = await bcrypt.hash(password, SALT);
 
+    const courses = await Course.find({ class: req.body.group[0] });
+
     const newUser = await User.create({
       firstName,
       secondName,
       group,
       password: hashedPassword,
+      courses,
     });
 
     const payload = {
@@ -43,6 +47,7 @@ const createUser = async (req, res, next) => {
       secondName,
       group,
       token,
+      courses,
     });
   } catch (error) {
     next(error);

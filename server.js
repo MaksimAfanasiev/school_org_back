@@ -3,6 +3,9 @@ const cors = require("cors");
 const dbConnect = require("./config/db");
 const { json, urlencoded } = require("express");
 const userRoutes = require("./routes/userRoutes/userRoutes");
+const dayRoutes = require("./routes/plannerRoutes/dayRoutes");
+
+const addCourse = require("./controllers/adminControllers/adminControllers");
 
 const PORT = "5050";
 
@@ -14,6 +17,10 @@ app.use(cors());
 
 // Routes;
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/planner", dayRoutes);
+
+//admin route
+app.post("/api/admin/course", addCourse);
 
 //404
 app.use((req, res) => {
@@ -26,8 +33,8 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   res.status(err.status).json({
     message: err.message,
-  })
-})
+  });
+});
 
 dbConnect();
 
