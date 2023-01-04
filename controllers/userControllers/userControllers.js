@@ -106,13 +106,14 @@ const logoutUser = async (req, res, next) => {
 };
 
 const getCurrent = async (req, res, next) => {
-  const { _id, firstName, secondName, group } = req.user;
+  const { _id, firstName, secondName, group, courses } = req.user;
 
   res.status(200).json({
     id: _id,
     firstName,
     secondName,
     group,
+    courses,
   });
 };
 
