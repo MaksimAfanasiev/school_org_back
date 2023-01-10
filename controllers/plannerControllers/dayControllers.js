@@ -34,6 +34,22 @@ const addDay = async (req, res, next) => {
   }
 };
 
+const getDays = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const days = await Day.find({ owner: userId }).populate("courses");
+
+    if (!days) {
+      throw RequestError(401, "Bad request")
+    }
+    
+    res.status(200).json(days)
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   addDay,
+  getDays,
 };
